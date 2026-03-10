@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Café Tango Verde</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Serif+Display&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --chocolate:   #45151B;
+      --mauvelous:   #EA9DAE;
+      --caramel:     #FBDE9C;
+      --royal-orange:#F99256;
+      --bittersweet: #C74E51;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--caramel); color: var(--chocolate); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: var(--chocolate);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .logo { font-family: 'DM Serif Display', serif; font-size: 1.7rem; color: var(--caramel); letter-spacing: 1px; }
+    .logo span { color: var(--mauvelous); }
+    nav ul { list-style: none; display: flex; gap: 2.2rem; }
+    nav ul li a { text-decoration: none; color: var(--caramel); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+    nav ul li a:hover { color: var(--mauvelous); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; background: var(--bittersweet);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 8rem 3rem 4rem;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -140px; right: -140px;
+      width: 540px; height: 540px; border-radius: 50%;
+      background: var(--chocolate); opacity: 0.35;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -80px; left: 40px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: var(--royal-orange); opacity: 0.4;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 640px; animation: fadeUp 1s ease both; }
+    .hero-eyebrow { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--caramel); font-weight: 700; margin-bottom: 1rem; opacity: 0.9; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1.05; color: var(--caramel); margin-bottom: 1.5rem; }
+    .hero-title em { color: var(--mauvelous); font-style: italic; }
+    .hero-sub { font-size: 1.1rem; line-height: 1.7; color: var(--caramel); opacity: 0.9; margin-bottom: 2.5rem; max-width: 460px; }
+    .btn { display: inline-block; padding: 0.9rem 2.4rem; border-radius: 50px; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--chocolate); color: var(--caramel); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(69,21,27,0.5); }
+    .btn-outline { background: transparent; border: 2px solid var(--caramel); color: var(--caramel); margin-left: 1rem; }
+    .btn-outline:hover { background: var(--caramel); color: var(--bittersweet); transform: translateY(-3px); }
+    .hero-badge {
+      position: absolute; right: 6vw; bottom: 6vw;
+      width: 130px; height: 130px; border-radius: 50%;
+      background: var(--mauvelous); color: var(--chocolate);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 1rem; line-height: 1.2; text-align: center;
+      animation: spin 18s linear infinite; z-index: 2;
+    }
+    .hero-badge strong { font-size: 2rem; display: block; }
+
+    /* SECTION */
+    .section-label { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; opacity: 0.6; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1rem; }
+
+    /* ABOUT */
+    #about { background: var(--caramel); padding: 7rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-visual { position: relative; height: 380px; }
+    .about-block { position: absolute; border-radius: 16px; }
+    .ab1 { width: 70%; height: 70%; top: 0; left: 0; background: var(--mauvelous); }
+    .ab2 { width: 55%; height: 60%; bottom: 0; right: 0; background: var(--bittersweet); }
+    .ab3 { width: 42%; height: 42%; top: 50%; left: 50%; transform: translate(-50%,-50%); background: var(--chocolate); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; color: var(--caramel); font-size: 1.1rem; text-align: center; line-height: 1.3; }
+    .about-text .section-title { color: var(--chocolate); }
+    .about-text p { font-size: 1.05rem; line-height: 1.8; color: var(--chocolate); opacity: 0.85; margin-bottom: 1rem; }
+
+    /* MENU */
+    #menu { background: var(--chocolate); padding: 7rem 3rem; }
+    #menu .section-label { color: var(--mauvelous); }
+    #menu .section-title { color: var(--caramel); margin-bottom: 3rem; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.8rem; }
+    .menu-card { background: var(--bittersweet); border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+    .menu-card .icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .menu-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--caramel); margin-bottom: 0.5rem; }
+    .menu-card p { color: var(--caramel); opacity: 0.85; font-size: 0.9rem; line-height: 1.6; }
+    .menu-card .price { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--caramel); color: var(--chocolate); font-weight: 700; font-size: 0.9rem; padding: 0.3rem 0.8rem; border-radius: 50px; }
+    .menu-card.featured { background: var(--royal-orange); }
+    .menu-card.featured h3, .menu-card.featured p { color: var(--chocolate); }
+    .menu-card.featured .price { background: var(--chocolate); color: var(--caramel); }
+
+    /* SPECIALS */
+    #specials { background: var(--mauvelous); padding: 5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+    #specials h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); color: var(--chocolate); max-width: 500px; line-height: 1.2; }
+    #specials h2 em { font-style: italic; color: var(--bittersweet); }
+
+    /* HOURS */
+    #hours { background: var(--caramel); padding: 7rem 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    #hours .section-title { color: var(--chocolate); }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    .hours-table tr { border-bottom: 1px solid rgba(69,21,27,0.15); }
+    .hours-table td { padding: 0.9rem 0; font-size: 1rem; color: var(--chocolate); }
+    .hours-table td:last-child { text-align: right; font-weight: 700; }
+    .hours-table tr.promo td { color: var(--bittersweet); font-weight: 700; }
+    .map-placeholder { background: var(--royal-orange); border-radius: 20px; height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--chocolate); font-family: 'DM Serif Display', serif; font-size: 1.3rem; gap: 0.5rem; text-align: center; }
+    .map-placeholder span { font-size: 3rem; }
+    .map-placeholder p { font-size: 0.9rem; opacity: 0.85; font-family: 'Lato', sans-serif; }
+
+    /* FOOTER */
+    footer { background: var(--chocolate); color: var(--caramel); padding: 3rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+    footer .logo { font-size: 1.4rem; }
+    footer p { font-size: 0.85rem; opacity: 0.75; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(251,222,156,0.15); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: background 0.3s; }
+    .social-links a:hover { background: var(--mauvelous); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1rem; }
+      #about, #hours { grid-template-columns: 1fr; }
+      .about-visual { height: 240px; }
+      .hero-badge { display: none; }
+      #specials { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Café <span>Tango</span> Verde</div>
+    <ul>
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="#menu">Menú</a></li>
+      <li><a href="#hours">Horarios</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">☕ Bienvenido a nuestro café</p>
+      <h1 class="hero-title">Cada sorbo,<br>una <em>historia.</em></h1>
+      <p class="hero-sub">Café de especialidad, ambiente cálido y sabores que despiertan los sentidos. Ven a vivir la experiencia Tango Verde.</p>
+      <a href="#menu" class="btn btn-primary">Ver Menú</a>
+      <a href="#hours" class="btn btn-outline">Encuéntranos</a>
+    </div>
+    <div class="hero-badge"><strong>10+</strong>años<br>sirviendo</div>
+  </section>
+
+  <section id="about">
+    <div class="about-visual">
+      <div class="about-block ab1"></div>
+      <div class="about-block ab2"></div>
+      <div class="about-block ab3">Desde<br>2014</div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Nuestra historia</p>
+      <h2 class="section-title">Pasión por el café de origen</h2>
+      <p>Nacimos con el sueño de acercar el café de especialidad a todos. Trabajamos directamente con pequeños productores para traerte granos únicos, tostados con amor.</p>
+      <p>Cada taza es el resultado de meses de cuidado, desde la semilla hasta tu mesa. Porque el buen café merece ser vivido, no solo bebido.</p>
+      <a href="#menu" class="btn btn-primary" style="margin-top:1rem;">Explorar el menú</a>
+    </div>
+  </section>
+
+  <section id="menu">
+    <p class="section-label">Lo que ofrecemos</p>
+    <h2 class="section-title">Nuestro Menú</h2>
+    <div class="menu-grid">
+      <div class="menu-card featured">
+        <span class="icon">☕</span>
+        <div class="price">$45</div>
+        <h3>Espresso de Origen</h3>
+        <p>Un shot intenso de café colombiano de altura. Notas de chocolate negro y frutos rojos.</p>
+      </div>
+      <div class="menu-card">
+        <span class="icon">🥛</span>
+        <div class="price">$65</div>
+        <h3>Latte Artesanal</h3>
+        <p>Espresso suave con leche vaporizada y arte latte. Disponible en versión vegana.</p>
+      </div>
+      <div class="menu-card">
+        <span class="icon">🍵</span>
+        <div class="price">$55</div>
+        <h3>Matcha Tango</h3>
+        <p>Matcha ceremonial japonés con leche de avena. Cremoso, terroso y totalmente adictivo.</p>
+      </div>
+      <div class="menu-card">
+        <span class="icon">🧇</span>
+        <div class="price">$85</div>
+        <h3>Waffle & Café</h3>
+        <p>Waffle belga crujiente con miel de agave, fruta fresca y un espresso al lado.</p>
+      </div>
+      <div class="menu-card">
+        <span class="icon">🍩</span>
+        <div class="price">$20</div>
+        <h3>Rosquillas</h3>
+        <p>24 horas de extracción en frío. Suave, refrescante con toques de caña y vainilla.</p>
+      </div>
+      <div class="menu-card">
+        <span class="icon">🥐</span>
+        <div class="price">$50</div>
+        <h3>Pan de Casa</h3>
+        <p>Croissant de mantequilla artesanal horneado cada mañana. La pareja perfecta del café.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="specials">
+    <h2>Todos los <em>martes y jueves</em><br>2×1 en bebidas calientes de 8 a 11 am.</h2>
+    <a href="#hours" class="btn btn-primary" style="background:var(--bittersweet); color:var(--caramel); white-space:nowrap;">Ver horarios</a>
+  </section>
+
+  <section id="hours">
+    <div>
+      <p class="section-label">Visítanos</p>
+      <h2 class="section-title">Horarios & Ubicación</h2>
+      <table class="hours-table">
+        <tr><td>Lunes</td><td>8:00 am – 8:00 pm</td></tr>
+        <tr class="promo"><td>Martes ★</td><td>8:00 am – 8:00 pm</td></tr>
+        <tr><td>Miércoles</td><td>8:00 am – 8:00 pm</td></tr>
+        <tr class="promo"><td>Jueves ★</td><td>8:00 am – 8:00 pm</td></tr>
+        <tr><td>Viernes</td><td>8:00 am – 10:00 pm</td></tr>
+        <tr><td>Sábado</td><td>9:00 am – 10:00 pm</td></tr>
+        <tr><td>Domingo</td><td>9:00 am – 6:00 pm</td></tr>
+      </table>
+      <p style="margin-top:1.2rem; font-size:0.85rem; opacity:0.65;">★ Días de promoción 2×1</p>
+    </div>
+    <div class="map-placeholder">
+      <span>📍</span>
+      Av. Café Verde 142<br>Col. Roma Norte, CDMX
+      <p>Tel: (55) 1234-5678</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo">Café <span>Tango</span> Verde</div>
+    <p>© 2026 Café Tango Verde · Todos los derechos reservados</p>
+    <div class="social-links">
+      <a href="#" title="Instagram">📸</a>
+      <a href="#" title="Facebook">👤</a>
+      <a href="#" title="WhatsApp">💬</a>
+    </div>
+  </footer>
+
+</body>
+</html>
